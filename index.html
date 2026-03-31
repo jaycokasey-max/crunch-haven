@@ -2,138 +2,66 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Crunch Haven - Order Food</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #fff8e6;
-}
+<title>Crunch Haven - Dynamic Menu</title>
 
-header {
-    background: gold;
-    padding: 20px;
-    text-align: center;
-    font-size: 26px;
-    font-weight: bold;
-}
+<style>
+body { font-family: Arial, sans-serif; margin: 0; background: #fff8e6; }
+header { background: gold; padding: 20px; text-align: center; font-size: 26px; font-weight: bold; }
 
 .container {
-    padding: 15px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 10px;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
 }
 
 .card {
-    background: white;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: center;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
 .card img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-.price {
-    font-weight: bold;
-    color: green;
-}
+.price { font-weight: bold; color: green; }
 
 button {
-    padding: 8px;
-    margin-top: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.add {
-    background: #2196F3;
-    color: white;
-}
-
-.whatsapp {
-    background: #25D366;
-    color: white;
-    width: 100%;
-}
-
-.pay {
-    background: #ff9800;
-    color: white;
-    width: 100%;
-}
+.add { background: #2196F3; color: white; }
+.whatsapp { background: #25D366; color: white; width: 100%; }
+.pay { background: #ff9800; color: white; width: 100%; }
 
 .cart {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    background: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px black;
-    width: 220px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  width: 220px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-Crunch Haven Snacks 🍟 - Fresh & Tasty
-</header>
+<header>Crunch Haven Snacks 🍟 - Updated Menu</header>
 
-<div class="container">
-
-<div class="card">
-<img src="https://source.unsplash.com/300x200/?chapati,food">
-<h3>Chapati</h3>
-<p class="price">15</p>
-<button class="add" onclick="addToCart('Chapati',15)">Add</button>
-</div>
-
-<div class="card">
-<img src="https://source.unsplash.com/300x200/?samosa,food">
-<h3>Samosa</h3>
-<p class="price">10</p>
-<button class="add" onclick="addToCart('Samosa',10)">Add</button>
-</div>
-
-<div class="card">
-<img src="https://source.unsplash.com/300x200/?sausage,food">
-<h3>Smokie</h3>
-<p class="price">35</p>
-<button class="add" onclick="addToCart('Smokie',35)">Add</button>
-</div>
-
-<div class="card">
-<img src="https://source.unsplash.com/300x200/?sausage,grilled">
-<h3>Sausage</h3>
-<p class="price">30</p>
-<button class="add" onclick="addToCart('Sausage',30)">Add</button>
-</div>
-
-<div class="card">
-<img src="https://source.unsplash.com/300x200/?sandwich,street-food">
-<h3>Smocha</h3>
-<p class="price">50</p>
-<button class="add" onclick="addToCart('Smocha',50)">Add</button>
-</div>
-
-<div class="card">
-<img src="https://source.unsplash.com/300x200/?fried-food,bhajia">
-<h3>Bhajia</h3>
-<p class="price">20+</p>
-<button class="add" onclick="addToCart('Bhajia',20)">Add</button>
-</div>
-
-</div>
+<div class="container" id="menu"></div>
 
 <div class="cart">
 <h4>Cart 🛒</h4>
@@ -148,50 +76,81 @@ Crunch Haven Snacks 🍟 - Fresh & Tasty
 </div>
 
 <script>
+const menu = [
+  {name:"Chapati", price:15, img:"https://source.unsplash.com/300x200/?chapati,food"},
+  {name:"Samosa", price:10, img:"https://source.unsplash.com/300x200/?samosa,food"},
+  {name:"Smokie", price:35, img:"https://source.unsplash.com/300x200/?sausage,food"},
+  {name:"Sausage", price:30, img:"https://source.unsplash.com/300x200/?sausage,grilled"},
+  {name:"food Smocha (smocha + bhajia/chips", price:70, img:"https://source.unsplash.com/300x200/?sandwich,food"},
+
+  {name:"Sausage & Chapati", price:40, img:"https://source.unsplash.com/300x200/?sausage,chapati"},
+  {name:"Boiled Egg & Chapati", price:35, img:"https://source.unsplash.com/300x200/?egg,chapati"},
+  {name:"Kachumbari", price:0, img:"https://source.unsplash.com/300x200/?salad,vegetable"},
+
+  {name:"Samosa & Sausage", price:40, img:"https://source.unsplash.com/300x200/?samosa,sausage"},
+
+  // ✅ NEW ITEMS ADDED
+  {name:"Smocha", price:50, img:"https://source.unsplash.com/300x200/?sandwich"},
+  {name:"Bhajia", price:20, img:"https://source.unsplash.com/300x200/?bhajia,fried-potato"}
+];
+
 let cart = [];
 
+function loadMenu() {
+  let html = "";
+  menu.forEach(item => {
+    html += `
+      <div class="card">
+        <img src="${item.img}">
+        <h3>${item.name}</h3>
+        <p class="price">${item.price}</p>
+        <button class="add" onclick="addToCart('${item.name}',${item.price})">Add</button>
+      </div>
+    `;
+  });
+  document.getElementById("menu").innerHTML = html;
+}
+
 function addToCart(name, price) {
-    cart.push({name, price});
-    renderCart();
+  cart.push({name, price});
+  renderCart();
 }
 
 function renderCart() {
-    let cartItems = document.getElementById("cartItems");
-    let total = 0;
-    let text = "";
+  let total = 0;
+  let text = "";
 
-    cart.forEach(item => {
-        total += item.price;
-        text += item.name + " - " + item.price + "<br>";
-    });
+  cart.forEach(item => {
+    total += item.price;
+    text += item.name + " - " + item.price + "<br>";
+  });
 
-    cartItems.innerHTML = text;
-    document.getElementById("total").innerText = total;
+  document.getElementById("cartItems").innerHTML = text;
+  document.getElementById("total").innerText = total;
 
-    let msg = encodeURIComponent("Hello, I want to order:\n" + text + "\nTotal: " + total);
-    document.getElementById("waLink").href =
-        "https://wa.me/254140659201?text=" + msg;
+  let msg = encodeURIComponent(
+    "Hello, I want to order:\n" + text + "\nTotal: " + total
+  );
+
+  document.getElementById("waLink").href =
+    "https://wa.me/254140659201?text=" + msg;
 }
 
 function payNow() {
-    let total = document.getElementById("total").innerText;
-
-    fetch("http://localhost:3000/stkpush", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({
-            phone: "254140659201",
-            amount: total
-        })
+  fetch("http://localhost:3000/stkpush", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      phone: "254140659201",
+      amount: document.getElementById("total").innerText
     })
-    .then(res => res.json())
-    .then(data => {
-        alert("STK Push sent! Check your phone.");
-    })
-    .catch(err => {
-        alert("Payment failed. Backend not connected.");
-    });
+  })
+  .then(res => res.json())
+  .then(() => alert("STK Push sent! Check your phone."))
+  .catch(() => alert("Payment failed. Backend not connected."));
 }
+
+window.onload = loadMenu;
 </script>
 
 </body>
