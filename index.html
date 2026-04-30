@@ -8,6 +8,14 @@
 body { font-family: Arial, sans-serif; margin: 0; background: #fff8e6; }
 header { background: gold; padding: 20px; text-align: center; font-size: 26px; font-weight: bold; }
 
+.info {
+  background: gold;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  border-bottom: 2px solid #ddd;
+}
+
 .container {
   padding: 15px;
   display: grid;
@@ -61,6 +69,13 @@ button {
 
 <header>Crunch Haven Snacks 🍟 - Updated Menu</header>
 
+<div class="info">
+  <p><b>📍 Gatunyu Market</b> – Along Gatura–Thika Road (Near Gatunyu Stadium)</p>
+  <p><b>⏰ Hours:</b> Weekdays 6PM–Late | Weekends & Holidays 1PM–Late</p>
+  <p><b>💰 Pay via Pochi:</b> 0714258880</p>
+  <p><b>📞 Call/WhatsApp:</b> 0714258880</p>
+</div>
+
 <div class="container" id="menu"></div>
 
 <div class="cart">
@@ -81,15 +96,6 @@ const menu = [
   {name:"Samosa", price:10, img:"https://source.unsplash.com/300x200/?samosa,food"},
   {name:"Smokie", price:35, img:"https://source.unsplash.com/300x200/?sausage,food"},
   {name:"Sausage", price:30, img:"https://source.unsplash.com/300x200/?sausage,grilled"},
-  {name:"food Smocha (smocha + bhajia/chips", price:70, img:"https://source.unsplash.com/300x200/?sandwich,food"},
-
-  {name:"Sausage & Chapati", price:40, img:"https://source.unsplash.com/300x200/?sausage,chapati"},
-  {name:"Boiled Egg & Chapati", price:35, img:"https://source.unsplash.com/300x200/?egg,chapati"},
-  {name:"Kachumbari", price:0, img:"https://source.unsplash.com/300x200/?salad,vegetable"},
-
-  {name:"Samosa & Sausage", price:40, img:"https://source.unsplash.com/300x200/?samosa,sausage"},
-
-  // ✅ NEW ITEMS ADDED
   {name:"Smocha", price:50, img:"https://source.unsplash.com/300x200/?sandwich"},
   {name:"Bhajia", price:20, img:"https://source.unsplash.com/300x200/?bhajia,fried-potato"}
 ];
@@ -129,7 +135,9 @@ function renderCart() {
   document.getElementById("total").innerText = total;
 
   let msg = encodeURIComponent(
-    "Hello, I want to order:\n" + text + "\nTotal: " + total
+    "Hello, I want to order:
+" + text + "
+Total: " + total
   );
 
   document.getElementById("waLink").href =
@@ -137,17 +145,7 @@ function renderCart() {
 }
 
 function payNow() {
-  fetch("http://localhost:3000/stkpush", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      phone: "254140659201",
-      amount: document.getElementById("total").innerText
-    })
-  })
-  .then(res => res.json())
-  .then(() => alert("STK Push sent! Check your phone."))
-  .catch(() => alert("Payment failed. Backend not connected."));
+  alert("Please pay via Pochi number 0714258880 and confirm on WhatsApp.");
 }
 
 window.onload = loadMenu;
